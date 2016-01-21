@@ -1,0 +1,46 @@
+<div class="jumbotron">
+  <h2>Powerball Winning Numbers</h2>
+  <hr/>
+  <div class="row">
+    <div class="col-xs-2"><input type="text" class="form-control" ng-model="ctrl.winningTicket.numbers[1]"/></div>
+    <div class="col-xs-2"><input type="text" class="form-control" ng-model="ctrl.winningTicket.numbers[2]"/></div>
+    <div class="col-xs-2"><input type="text" class="form-control" ng-model="ctrl.winningTicket.numbers[3]"/></div>
+    <div class="col-xs-2"><input type="text" class="form-control" ng-model="ctrl.winningTicket.numbers[4]"/></div>
+    <div class="col-xs-2"><input type="text" class="form-control" ng-model="ctrl.winningTicket.numbers[5]"/></div>
+    <div class="col-xs-2"><input type="text" class="form-control powerball" ng-model="ctrl.winningTicket.numbers['powerball']"/></div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-7">
+    <h2>Your Tickets</h2>
+  </div>
+  <div class="col-xs-3" style="text-align: center;">
+    <h2 ng-hide="ctrl.jackpot">{{ctrl.winnings | currency:"$":0}}</h2>
+    <h3 ng-show="ctrl.jackpot">JACKPOT!</h3>
+  </div>
+  <div class="col-xs-2" style="text-align: center;margin-top: 25px;">
+    <button class="btn btn-default smaller" ng-click="ctrl.addNewTicket()">Add<i class="fa fa-plus" style="margin-left: 5px;"></i></button>
+  </div>
+</div>
+
+<div class="row marketing" ng-repeat="ticket in ctrl.myTickets">
+  <div class="col-xs-9">
+    <div class="row">
+      <div class="col-xs-2"><input type="text" class="form-control" ng-model="ticket.numbers[1]" ng-class="{ 'winner': ticket.isWinner }"/><span>{{ctrl.isTicketMatch(ticket[1])}}</span></div>
+      <div class="col-xs-2"><input type="text" class="form-control" ng-model="ticket.numbers[2]" ng-class="{ 'winner': ticket.isWinner }"/></div>
+      <div class="col-xs-2"><input type="text" class="form-control" ng-model="ticket.numbers[3]" ng-class="{ 'winner': ticket.isWinner }"/></div>
+      <div class="col-xs-2"><input type="text" class="form-control" ng-model="ticket.numbers[4]" ng-class="{ 'winner': ticket.isWinner }"/></div>
+      <div class="col-xs-2"><input type="text" class="form-control" ng-model="ticket.numbers[5]" ng-class="{ 'winner': ticket.isWinner }"/></div>
+      <div class="col-xs-2"><input type="text" class="form-control powerball" ng-model="ticket.numbers['powerball']" ng-class="{ 'winner': ticket.isWinner }"/></div>
+    </div>
+  </div>
+  <div class="col-xs-2">
+    <div ng-show="ticket.isJackpot"><i class="fa fa-exclamation"></i><i class="fa fa-exclamation"></i><i class="fa fa-exclamation"></i></div>
+    <div ng-show="ticket.isWinner && !ticket.isJackPot" class="ellipsis">{{ticket.winnings | currency:"$":0}}</div>
+    <div ng-show="ticket.isInvalid"><i class="fa fa-times"></i></div>
+  </div>
+  <div class="col-xs-1">
+    <button class="btn btn-default smaller" ng-click="ctrl.removeTicket(ticket)"><i class="fa fa-minus"></i></button>
+  </div>
+</div>
